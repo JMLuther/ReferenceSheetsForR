@@ -14,12 +14,12 @@ knitr::opts_chunk$set(
 
 This repository contains Documents for future reference.  
 
-As I come across a task or issue with a useful solution, this is where I store the results.
+As I come across a task or issue with a useful solution, this is where I store the results.  
 
 # Examples  
 
 ## Non-standard Fonts  
-How to import Google fonts and add to ggplot
+How to import Google fonts and add to ggplot  
 ```{r, echo=FALSE, fig.showtext=TRUE, message=FALSE, warning=FALSE}
 library(sysfonts)
 library(knitr)
