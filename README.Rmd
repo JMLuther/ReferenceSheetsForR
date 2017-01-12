@@ -1,0 +1,40 @@
+---
+output: github_document
+---
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# ReferenceSheetsForR 
+
+This repository contains Documents for future reference.  
+
+As I come across a task or issue with a useful solution, this is where I store the results.
+
+# Examples  
+
+## Non-standard Fonts  
+How to import Google fonts and add to ggplot
+```{r, echo=FALSE, fig.showtext=TRUE, message=FALSE, warning=FALSE}
+library(sysfonts)
+library(knitr)
+font.add.google("Fredericka the great", "frederickaTG")
+library(showtext)
+set.seed(123)
+data<-data.frame(x=rnorm(1000))
+library(ggplot2)
+ggplot(data, aes(x)) + geom_density(fill = "red", alpha=0.75) + 
+  labs(title="Histogram of Normal Random Numbers",
+       x="Distribution of x",
+       y="Density") +
+  theme_bw() + 
+  theme(title = element_text(family="frederickaTG", color="red", size = 18),
+        axis.text.x = element_text(family="frederickaTG", color="red", size = 12),
+        axis.text.y = element_text(family="frederickaTG", color="red", size = 12))        
+```
+
