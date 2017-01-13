@@ -20,7 +20,7 @@ output:
   *  `showtext` package. Flexible for non-standard fonts in R graphs. Doesn't work with RStudio graphics device  (use X11() device within RStudio). 
 
 Example on how to pull in fonts from GoogleFonts and create a family name in R: 
-```{r}
+```{r, message=FALSE, warning=FALSE}
 library(tidyverse)
 library(sysfonts)
 library(knitr)
@@ -38,7 +38,7 @@ font.add.google("Annie Use Your Telescope", "annie")
 The following example adds different fonts to various text elements in ggplot:
 (note: works only when rendering to X11 output within RStudio).  
 
-Note: to make this work with RMD -> html output, add `fig.showtext=TRUE` to the chunk header. This automatically invokes the `showtext.auto()` command.
+Note: to make this work with RMD -> html output, add `fig.showtext=TRUE` to the chunk header. This automatically invokes the `showtext.auto()` command, which would otherwise need to be run in an interactive session.
 
 ```{r, echo=TRUE, fig.showtext=TRUE, message=FALSE, warning=FALSE}
 library(showtext)
@@ -87,7 +87,7 @@ y = rnorm(20)
 [Sparklines](https://github.com/htmlwidgets/sparkline) is a package which allows addition of inline or table sparklines in html output from Rmd documents.  
 
 ## Examples:
-Note: sparklines are interactive in htmml documents. Mouse over the data points.
+Note: sparklines are interactive in html documents. Mouse over the data points.
 an inline Sparkline: `r sparkline(x)`  
 an inline barplot with absolute `r sparkline(abs(x), type = 'bar')` or including negative values  `r sparkline(x, type = 'bar')`  
 an inline boxplot `r sparkline(x, type = 'box')`  
@@ -101,7 +101,7 @@ Example 1 is using manually formatted table (inline text):
 | x     | `r sparkline(x)`  | `r sparkline(x, type ='box')`
 | y     | `r sparkline(y)`  | `r sparkline(y, type ='box')`
 
-[Example 2](https://github.com/renkun-ken/formattable/issues/10#issuecomment-110864675) is using the `formattable` package for table printing,  from a code chunk:    
+[Example 2 from StackOverlow](https://github.com/renkun-ken/formattable/issues/10#issuecomment-110864675) is using the `formattable` package for table printing,  from a code chunk:    
 ```{r}
 df = data.frame(id=c("x","y"),"sparkline"=NA, "sparkbox" = NA)
 
@@ -124,33 +124,9 @@ formattable(
 )
 ```
 
-Another example from [StackOverflow](https://github.com/renkun-ken/formattable/issues/10#issuecomment-110864675)  
+[Another example from StackOverflow](https://github.com/renkun-ken/formattable/issues/10#issuecomment-110864675)  
+Example works in RStudio session but not in html output
 
-```{r}
-iris %>%
-  group_by(Species) %>%
-  summarize_all(list) %>%
-  formattable(
-    formatters = list(
-      area(col=2:5) ~ function(x){
-        lapply(x,function(xx){
-          as.character(as.tags(
-            sparkline(xx,type="box",chartRangeMin=0,chartRangeMax=max(unlist((x))))
-          ))
-        })
-      }
-    ),
-    table.attr="class='table table-condensed table-striped'"
-  ) %>%
-  formattable:::as.htmlwidget() %>%
-  htmlwidgets:::as.tags.htmlwidget() %>%
-  tagList() %>%
-  attachDependencies(
-    htmlwidgets:::widget_dependencies("sparkline","sparkline")
-  ) %>%
-  browsable()
-
-```
 
 An html table with color-bar in a code block from [stack overflow](http://stackoverflow.com/questions/32841221/add-sparkline-graph-to-a-table):
 ```{r cars}
@@ -172,6 +148,13 @@ formattable(res,
               SL_SD=color_bar("steelblue")))
 ```
 
-
-
 Some details from [leonawicz GitHub blog](http://leonawicz.github.io/HtmlWidgetExamples/ex_dt_sparkline.html) provides some details on making very nice tables from Rmarkdown to html, although it includes a lot of extra javascript that may not be needed for basic tables.
+
+The [`sparktable` package](https://github.com/alexkowa/sparkTable) provides tools for making Tables which contain sparkline objects. Inline sparklines can be created using `sparktable::newSparkLine()`, but the result must be saved as an image, and then referenced inline. The result is also not interactive.  
+
+The best reference for this package is the [R Journal manuscript](https://journal.r-project.org/archive/2015-1/templ-kowarik-meindl.pdf)  
+```{r}
+
+```
+
+
