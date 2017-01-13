@@ -38,3 +38,4 @@ ggplot(data, aes(x)) + geom_density(fill = "red", alpha=0.75) +
         axis.text.y = element_text(family="frederickaTG", color="red", size = 12))        
 ```
 
+## Sparklines

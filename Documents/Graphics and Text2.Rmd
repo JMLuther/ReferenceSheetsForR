@@ -1,0 +1,177 @@
+---
+title: "Graphics and Text"
+author: "JML"
+date: "January 12, 2017"
+output: 
+  html_document:
+    toc: TRUE
+    toc_float: TRUE
+    code_folding: hide 
+    number_sections: TRUE
+    theme: sandstone
+    highlight: haddock
+    fig_caption: FALSE
+---
+
+# Font-related Packages  
+
+  *  `sysfont` package. Can pull in [Google fonts](https://fonts.google.com/)    
+  *  `extrafont` package. Very useful for TTF in PDF  
+  *  `showtext` package. Flexible for non-standard fonts in R graphs. Doesn't work with RStudio graphics device  (use X11() device within RStudio). 
+
+Example on how to pull in fonts from GoogleFonts and create a family name in R: 
+```{r}
+library(tidyverse)
+library(sysfonts)
+library(knitr)
+font.add.google("Gochi Hand", "gochi")
+font.add.google("Schoolbell", "bell")
+font.add.google("Fredericka the great", "frederickaTG")
+font.add.google("Annie Use Your Telescope", "annie")
+
+```
+
+## Examples  
+
+### Nonstandard Fonts in base plot
+
+The following example adds different fonts to various text elements in ggplot:
+(note: works only when rendering to X11 output within RStudio).  
+
+Note: to make this work with RMD -> html output, add `fig.showtext=TRUE` to the chunk header. This automatically invokes the `showtext.auto()` command.
+
+```{r, echo=TRUE, fig.showtext=TRUE, message=FALSE, warning=FALSE}
+library(showtext)
+set.seed(123)
+data<-data.frame(x=rnorm(1000))
+## Manually open a graphics device if you run this code in RStudio
+#X11({ # use this if plotting in RStudio; open font-friendly device to plot in 
+#showtext.auto() ## Automatically use showtext to render text
+hist(data$x, col="steelblue", breaks=50, border="white", xlab="", ylab="", main="")
+title("Histogram of Normal Random Numbers", cex.main=4, family="annie")
+  title(xlab = "Distribution of x", family = "gochi", cex.lab = 3)
+  title(ylab="Density", family = "bell", cex.lab = 3)
+#})
+```
+
+
+### Nonstandard Fonts in `ggplot`
+
+The following example adds different fonts to various text elements in ggplot:
+```{r, echo=TRUE, fig.showtext=TRUE, message=FALSE, warning=FALSE}
+library(ggplot2)
+library(formattable)
+library(htmltools)
+## Manually open a graphics device if you run this code in RStudio
+#x11() # use this if plotting in RStudio; open font-friendly device to plot in 
+#showtext.auto() ## Automatically use showtext to render text
+ggplot(data, aes(x)) + geom_density(fill = "red", alpha=0.75) + 
+  labs(title="Histogram of Normal Random Numbers",
+       x="Distribution of x",
+       y="Density") +
+  theme_bw() + 
+  theme(title = element_text(family="frederickaTG", color="red", size = 32),
+        axis.text.x = element_text(family="frederickaTG", color="red", size = 18),
+        axis.text.y = element_text(family="frederickaTG", color="red", size = 18))        
+#  theme(title=element_text(family="annie")) 
+```
+
+# Sparklines  
+```{r}
+library(sparkline)
+x = rnorm(20)
+y = rnorm(20)
+```
+
+
+[Sparklines](https://github.com/htmlwidgets/sparkline) is a package which allows addition of inline or table sparklines in html output from Rmd documents.  
+
+## Examples:
+Note: sparklines are interactive in htmml documents. Mouse over the data points.
+an inline Sparkline: `r sparkline(x)`  
+an inline barplot with absolute `r sparkline(abs(x), type = 'bar')` or including negative values  `r sparkline(x, type = 'bar')`  
+an inline boxplot `r sparkline(x, type = 'box')`  
+
+An interesting use of Sparklines is to add a visual representation of the data to a summary table:
+
+Example 1 is using manually formatted table (inline text):  
+
+| Stock | Sparkline         | Boxplot  
+|-------|-------------------|--------
+| x     | `r sparkline(x)`  | `r sparkline(x, type ='box')`
+| y     | `r sparkline(y)`  | `r sparkline(y, type ='box')`
+
+[Example 2](https://github.com/renkun-ken/formattable/issues/10#issuecomment-110864675) is using the `formattable` package for table printing,  from a code chunk:    
+```{r}
+df = data.frame(id=c("x","y"),"sparkline"=NA, "sparkbox" = NA)
+
+formattable(
+  df,
+  list(
+    "sparkline"=function(z){
+      sapply(
+        paste0(text='`r sparkline(',df$id,')`')
+        ,function(md) knitr::knit(text=md, quiet=T)
+      )
+    }
+    ,sparkbox =function(z){
+      sapply(
+        paste0(text='`r sparkline(',df$id,',type="box")`')
+        ,function(md) knitr::knit(text=md, quiet=T)
+      )
+    }
+  )
+)
+```
+
+Another example from [StackOverflow](https://github.com/renkun-ken/formattable/issues/10#issuecomment-110864675)  
+
+```{r}
+iris %>%
+  group_by(Species) %>%
+  summarize_all(list) %>%
+  formattable(
+    formatters = list(
+      area(col=2:5) ~ function(x){
+        lapply(x,function(xx){
+          as.character(as.tags(
+            sparkline(xx,type="box",chartRangeMin=0,chartRangeMax=max(unlist((x))))
+          ))
+        })
+      }
+    ),
+    table.attr="class='table table-condensed table-striped'"
+  ) %>%
+  formattable:::as.htmlwidget() %>%
+  htmlwidgets:::as.tags.htmlwidget() %>%
+  tagList() %>%
+  attachDependencies(
+    htmlwidgets:::widget_dependencies("sparkline","sparkline")
+  ) %>%
+  browsable()
+
+```
+
+An html table with color-bar in a code block from [stack overflow](http://stackoverflow.com/questions/32841221/add-sparkline-graph-to-a-table):
+```{r cars}
+library(dplyr)
+library(formattable)
+res <- 
+  iris %>% 
+  group_by(Species) %>% 
+  summarise(N=n(),
+            SL_Mean=round(mean(Sepal.Length),3),
+            SL_SD=round(sd(Sepal.Length),3),
+            SW_Mean=round(mean(Sepal.Width),3),
+            SW_SD=round(sd(Sepal.Width),3))
+
+#using formattable
+formattable(res,
+            list(
+              SL_Mean=color_bar("pink", "proportion"),
+              SL_SD=color_bar("steelblue")))
+```
+
+
+
+Some details from [leonawicz GitHub blog](http://leonawicz.github.io/HtmlWidgetExamples/ex_dt_sparkline.html) provides some details on making very nice tables from Rmarkdown to html, although it includes a lot of extra javascript that may not be needed for basic tables.
