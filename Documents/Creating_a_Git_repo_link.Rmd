@@ -30,8 +30,10 @@ The following lists the simplest steps which work for me (see [16.1 New Project,
   
 
 # A few Git commands
-`git config --global user.name "[name]"` 
+It is helpful to use command line git. On occasion the 'Git' command in RStudio does not work.
 
+`git config --global user.name "[name]"` 
+`git rm [file]` deletes a file and stage the deletion
 `git push -u origin master`   uploads local commits to GitHub  
 `git pull -u origin master`   downloads bookmark history and incorporates changes.
 `git add [file]` snapshot a file  
