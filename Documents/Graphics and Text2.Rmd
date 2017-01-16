@@ -64,15 +64,15 @@ library(formattable)
 library(htmltools)
 ## Manually open a graphics device if you run this code in RStudio
 #x11() # use this if plotting in RStudio; open font-friendly device to plot in 
-#showtext.auto() ## Automatically use showtext to render text
-ggplot(data, aes(x)) + geom_density(fill = "red", alpha=0.75) + 
+showtext.auto() ## Automatically use showtext to render text
+ggplot(data, aes(x)) + geom_density(fill = "steelblue", alpha=0.75) + 
   labs(title="Histogram of Normal Random Numbers",
        x="Distribution of x",
        y="Density") +
   theme_bw() + 
-  theme(title = element_text(family="frederickaTG", color="red", size = 32),
-        axis.text.x = element_text(family="frederickaTG", color="red", size = 18),
-        axis.text.y = element_text(family="frederickaTG", color="red", size = 18))        
+  theme(title = element_text(family="frederickaTG", color="steelblue", size = 32),
+        axis.text.x = element_text(family="frederickaTG", color="steelblue", size = 18),
+        axis.text.y = element_text(family="frederickaTG", color="steelblue", size = 18))        
 #  theme(title=element_text(family="annie")) 
 ```
 
