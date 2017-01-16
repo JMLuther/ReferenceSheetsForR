@@ -11,7 +11,7 @@ For step-by-step instructions see [Stats 545 "Happy Git with R"](http://happygit
 This assumes that you can successfully set up a GitHub connection in RStudio using the instructions.
 The following lists the simplest steps which work for me (see [16.1 New Project, GitHub First](http://happygitwithr.com/new-github-first.html)):
 
-  1.  Make a new repo on GitHub  
+  1.  First, Make a new repo on GitHub  
       *  create with a README.md  
       *  Use the same name for the repo and RStudio Project  
   2.  Start a new Project in RStudio   
@@ -25,16 +25,30 @@ The following lists the simplest steps which work for me (see [16.1 New Project,
       *  If you're lucky, just "Push" will work  
       *  I can't get the "Push" button to work, so need to use the Git Shell (Git > More > Shell)  
       *  Type `git push -u origin master` at the command line. That should update the GitHub version.
-  6.  If you make a change on GitHub, click "Pull"  
-      *  Alternatively, just type `git pull -u origin master` in the Git Shell  
+  6.  If you make a change on GitHub, "Pull"  
+      *  Alternatively, `git pull -u origin master` in the Git Shell  
   
 
-# A few Git commands
+# A few Git commands  
+
 It is helpful to use command line git. On occasion the 'Git' command in RStudio does not work.
 
-`git config --global user.name "[name]"` 
-`git rm [file]` deletes a file and stage the deletion
-`git push -u origin master`   uploads local commits to GitHub  
-`git pull -u origin master`   downloads bookmark history and incorporates changes.
+Setup:
+`git config --global user.name 'Your Name'` associates a name with changes made to github (doesn't have to be GitHub name)
+`git config --global user.email 'your.name@email.address'` This MUST be your GitHub e-mail address
+`git config --global --list`
+
+
+`pwd` display working directory  
+`cd ..` move up a directory  
+`ls` lists the files and directories in the repo (not in .gitignore)  
+`git remote show origin`  Display GitHub file connection information  
+`git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY.git` Clones the GitHub repo into your RStudio project  
+
+`git rm [file]` deletes a file and stage the deletion  
+`git pull -u origin master`   downloads bookmark history and incorporates changes.  
 `git add [file]` snapshot a file  
-`git commit -m "[descriptive message]"` record snapshot permanently  
+`git commit -m "[descriptive message]"` record snapshot permanently; must add a message    
+`git push -u origin master`   uploads local commits to GitHub   
+
+`rm -rf myrepo/` PERMANENTLY DELETES A REPO
