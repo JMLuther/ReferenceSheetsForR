@@ -29,18 +29,29 @@ library(ggforce)
 # Adding Windows Fonts 
 R recognizes only a few basic fonts by default to use in plotting. Additional Windows true-type fonts (TTF) can be added as needed, once they have been installed.  The R windows device must also be instructed where to look for the fonts.
 
+For a full description of how to add windows fonts see [Zev Ross blog](http://zevross.com/blog/2014/07/30/tired-of-using-helvetica-in-your-r-graphics-heres-how-to-use-the-fonts-you-like-2/).
+
+Follow these basic steps:  
 
   1.  Create an R font database table (fonttable) with the following command: `extrafont::font_import()`  
       *  you only need to run this once, but must re-run it if you install more fonts to windows.  
       *  it takes awhile, so you don't want to re-run frequently.  
   2.  Register the fonts with the Windows device:  `extrafont::loadfonts(device = "win", quiet = T)`  
-      * Only need to do this once per R session  
-      
-_This does not work on my Windows system, obviously_
-A workaround can be done using the `showtext` package  
+      *  Only need to do this once per R session  
+  3.  To change the text, make sure to reference the font family name correctly.  you may need to reference the fonttable:  
+      *  create a table and view it using the `View(extrafont::fonttable())` command  
+      *  the `FontName` variable contains the name you need  
+  4.  PDF/Postscript only. Ghostscript must be installed to embed fonts into a PDF file or Postscript file  
+      *  Install Ghostscript by downloading from [their site](https://ghostscript.com/download/gsdnld.html)  
+      *  Tell R where Ghostscript exe file is located: `Sys.setenv(R_GSCMD="C:/Program Files/gs/gs9.20")`  
+      *  create a ggplot or other plot as a PDF:  `ggsave("newfont.pdf")`  
+      *  Embed the fonts:  `embed_fonts("newfont.pdf")`  
+
+At first, I though this was not working- but I was not being careful enough with the exact "FontName" variable. If you have trouble, doublecheck.      
 ```{r}
 #windowsFonts("Cabin-Regular" = windowsFont("Cabin"))
 extrafont::loadfonts(device = "win", quiet = T)
+# View(extrafont::fonttable())
 # Data for plotting
   a <- rnorm(500, 6, 1)
   b <- rnorm(400, 5, 1.5)
@@ -57,10 +68,12 @@ df$Distribution <- factor(df$Distribution,
 ggplot(df, aes(Distribution, Value)) +
   geom_violin(fill="steelblue", alpha=0.2) +
   geom_sina(scale=FALSE) +
-  annotate(geom="text", x=3, y=9, label= "Times Roman Italic", family="Times", 
-           fontface="italic", lineheight=.8, color="red") +
-  annotate(geom="text", x=1, y=1.75, label="Courier\nAnnotation text", colour="red",
-             size=7, family="Courier", fontface="bold", angle=30)
+  annotate(geom="text", x=3, y=9, label= "\"Annie Use Your Telescope\"\nFont", family="Annie Use Your Telescope", 
+           lineheight=.8, color="red") +
+  annotate(geom="text", x=3, y=0, label= "\"Roboto Condensed\" Font", family="Roboto Condensed", 
+           lineheight=.8, color="red") +
+  annotate(geom="text", x=1, y=1.75, label="\"Bauhaus 93\"\nAnnotation text", colour="red",
+             size=7, family="Bauhaus 93", angle=30)
 
 ```
 
