@@ -31,7 +31,7 @@ font.add.google("Annie Use Your Telescope", "annie")
 
 ```
 
-## Examples  
+## `showtext` and GoogleFonts  
 
 ### Nonstandard Fonts in base plot
 
@@ -75,6 +75,18 @@ ggplot(data, aes(x)) + geom_density(fill = "steelblue", alpha=0.75) +
         axis.text.y = element_text(family="frederickaTG", color="steelblue", size = 18))        
 #  theme(title=element_text(family="annie")) 
 ```
+
+## `extrafont` and TTF  
+
+This is useful for registering and using system fonts in PDF or postscript files.
+
+
+```{r}
+library(extrafont)
+# font_import()
+```
+
+
 
 # Sparklines  
 ```{r}
