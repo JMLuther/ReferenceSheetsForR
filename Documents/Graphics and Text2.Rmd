@@ -1,7 +1,7 @@
 ---
 title: "Graphics and Text"
 author: "JML"
-date: "January 12, 2017"
+date: "`Sys.Date()`"
 output: 
   html_document:
     toc: TRUE

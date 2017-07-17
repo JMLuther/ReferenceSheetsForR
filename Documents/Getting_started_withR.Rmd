@@ -1,0 +1,60 @@
+---
+title: "Getting started with R"
+author: "JM Luther"
+date: "`Sys.Date()`"
+output: 
+  html_document:
+    toc: TRUE
+    toc_float: TRUE
+    code_folding: hide 
+    number_sections: TRUE
+    theme: sandstone
+    highlight: haddock
+    fig_caption: FALSE
+---
+```{r, message=FALSE, warning=FALSE, include=FALSE}
+library(tidyverse)
+```
+
+# Introduction  
+
+This file is resource to help students get started with R.
+This assumes that students are motivated (and intelligent!), but do not have any experience in programming, statistics, or medical research.
+
+
+Each section is targeted based on your experience level in R and programming.
+
+# References by Skill Level  
+
+## Beginner  
+
+**The Tidyverse**  
+
+I'm convinced the best introductory R resource is [**R for Data Science**](http://r4ds.had.co.nz/), available either online (free) or in print.  This book is written by Hadley Wickham et al. and uses an R programming dialect which is in my opinion, more consistent than the standard "Base R" language which does not rely on any extra packages. I recommend learning this first, and then expanding your knowledge of the "Base R" language.  Note that anything that can be done using the "tidyverse" language can be done using Base R functions. However, for people with little programming background, this book is a great introduction.  
+
+This book will walk you through it but here are the first steps:  
+
+  1.  Install R from the [CRAN website](https://cloud.r-project.org/)  
+  2.  Install RStudio from the [RStudio website](https://www.rstudio.com/products/rstudio/download/)  
+  3.  Start RStudio and install the `tidyverse` package with the code `install.packages("tidyverse")`  
+  
+**Stats 545**  
+
+You can also start with the University of British Columbia [`STAT 545`](http://stat545.com/index.html) website, which has an incredible list of introductory material for R and Statistics. It is written largely by [Jenny Bryan](https://twitter.com/JennyBryan) who you can follow on Twitter. The most useful [list of topics page](http://stat545.com/topics.html) will get you going.
+
+**Standard/Base R**  
+
+Another book with more focus on statistics is [Applied Statistics with R](https://daviddalpiaz.github.io/appliedstats/) which is an online book. This book is written with "Base R" in mind, rather than using the "tidyverse" dialect presented in **R for Data Science**  
+Note: GitHub makes anything you load public. Do not upload sensitive research data here.  
+
+## Intermediate  
+
+## Advanced    
+
+Once you have a good handle on the R language, you can expand on it using these references. Some are available online, although some are only in print.
+
+References:  
+
+  1.  [Advanded R](http://adv-r.had.co.nz/).  A book with programming details.  
+  2.  [Efficient R Programming](https://csgillespie.github.io/efficientR/index.html). Focus on research and programming design.  
+  
