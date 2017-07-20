@@ -1,7 +1,7 @@
 ---
 title: "Getting started with R"
 author: "JM Luther"
-date: "`Sys.Date()`"
+date: "`r Sys.Date()`"
 output: 
   html_document:
     toc: TRUE
@@ -30,9 +30,9 @@ Each section is targeted based on your experience level in R and programming.
 
 **The Tidyverse**  
 
-I'm convinced the best introductory R resource is [**R for Data Science**](http://r4ds.had.co.nz/), available either online (free) or in print.  This book is written by Hadley Wickham et al. and uses an R programming dialect which is in my opinion, more consistent than the standard "Base R" language which does not rely on any extra packages. I recommend learning this first, and then expanding your knowledge of the "Base R" language.  Note that anything that can be done using the "tidyverse" language can be done using Base R functions. However, for people with little programming background, this book is a great introduction.  
+I'm convinced the best introductory R resource is [**R for Data Science**](http://r4ds.had.co.nz/), available either online (free) or in print.  This book is written by Hadley Wickham et al. and uses an R programming dialect which is in my opinion, more consistent than the standard "Base R" language.I recommend learning this first, and then expanding your knowledge of the "Base R" language.  Note that anything that can be done using the "tidyverse" language can be done using Base R functions. However, for people with little programming background, this book is a great introduction. Although it is tidyverse-centric, it introduces the Base R versions for comparison.  
 
-This book will walk you through it but here are the first steps:  
+This book will walk you through it, but here are the first steps:  
 
   1.  Install R from the [CRAN website](https://cloud.r-project.org/)  
   2.  Install RStudio from the [RStudio website](https://www.rstudio.com/products/rstudio/download/)  
@@ -57,4 +57,3 @@ References:
 
   1.  [Advanded R](http://adv-r.had.co.nz/).  A book with programming details.  
   2.  [Efficient R Programming](https://csgillespie.github.io/efficientR/index.html). Focus on research and programming design.  
-  
