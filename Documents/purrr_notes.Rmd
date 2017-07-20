@@ -1,0 +1,68 @@
+---
+title: "purrr Notes"
+Date: "`r Sys.Date()`"
+output: github_document
+---
+load common packages first:  
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(readxl)
+```
+
+Common tasks can be simplified using `apply` functions rather than "for" loops, as would be used in other programming languages.  The `purrr` package includes the "tidyverse" versions as the `map` functions.
+
+# Basics  
+
+# Examples  
+
+# My Tasks  
+
+## Data Collection  
+
+My research team commonly uses data collection into a standardized excel file (yes, really), with a standardized data summary for each study day.  Data from multiple sheets can be extracted simultaneously for a whole study using the `purr` functions.
+
+Collect the file names from the data directory, including all subdirectories:  
+note, this assumes that your data directory is located in the working directory.
+```{r}
+# get file names to import
+#fileNames <- 
+  dir(file.path(getwd(),"datasheets"), pattern = ".xlsx", recursive = TRUE)
+  dir(pattern = ".xlsx", recursive = TRUE)
+```
+
+Create a dataFrame with ID, Date, and a list-column containing the data from each of the datasheets.  
+note, pulling the id and date from standard format of the file names.  
+```{r}
+# Create a DataFrame
+# and import the data needed for "minmod" 
+data <- data_frame(
+  id = gsub(".*/([0-9]*)_.*", "\\1", fileNames), # the id for each
+  date = gsub(".*/[0-9]*_([0-9]*-[0-9]*-[0-9]*).*", "\\1", fileNames), # the date for each
+  filename = fileNames) %>% mutate(
+    ivgtt = map(paste0(getwd(),"/datasheets/", fileNames), read_excel, sheet="to minmod"))
+```
+
+View the data. The `ivgtt` data from each sheet is stored as a list-column.:  
+```{r}
+data
+```
+
+The data can be extracted into "long" format using the `unnest` command.  
+A sample of the result is below.
+```{r}
+data %>% unnest() %>% 
+  select(-filename) %>% 
+  filter(time<5)
+```
+
+Plot some results:
+```{r}
+data %>% unnest() %>% group_by(id, date) %>%  
+  ggplot(aes(x=time, group=interaction(id, date))) +
+  geom_line(aes(y=insulin), color="steelblue") +
+  geom_line(aes(y=glucose), color="red") +
+  facet_wrap(~id) + theme_bw()
+  
+
+```
+
