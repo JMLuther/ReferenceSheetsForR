@@ -25,9 +25,8 @@ Collect the file names from the data directory, including all subdirectories:
 note, this assumes that your data directory is located in the working directory.
 ```{r}
 # get file names to import
-#fileNames <- 
-  dir(file.path(getwd(),"datasheets"), pattern = ".xlsx", recursive = TRUE)
-  dir(pattern = ".xlsx", recursive = TRUE)
+fileNames <- dir(file.path(getwd(),"datasheets"), pattern = "(\\.xlsx)$", recursive = TRUE)
+#  dir(pattern = ".xlsx", recursive = TRUE)
 ```
 
 Create a dataFrame with ID, Date, and a list-column containing the data from each of the datasheets.  

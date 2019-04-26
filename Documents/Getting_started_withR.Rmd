@@ -21,35 +21,52 @@ library(tidyverse)
 This file is resource to help students get started with R.
 This assumes that students are motivated (and intelligent!), but do not have any experience in programming, statistics, or medical research.
 
+## Getting started with R  
 
-Each section is targeted based on your experience level in R and programming.
-
-# References by Skill Level  
-
-## Beginner  
-
-**The Tidyverse**  
-
-I'm convinced the best introductory R resource is [**R for Data Science**](http://r4ds.had.co.nz/), available either online (free) or in print.  This book is written by Hadley Wickham et al. and uses an R programming dialect which is in my opinion, more consistent than the standard "Base R" language.I recommend learning this first, and then expanding your knowledge of the "Base R" language.  Note that anything that can be done using the "tidyverse" language can be done using Base R functions. However, for people with little programming background, this book is a great introduction. Although it is tidyverse-centric, it introduces the Base R versions for comparison.  
-
-This book will walk you through it, but here are the first steps:  
+To get started from scratch- The [R for Data Science](http://r4ds.had.co.nz/) book will walk you through it, but here are the first steps:  
 
   1.  Install R from the [CRAN website](https://cloud.r-project.org/)  
   2.  Install RStudio from the [RStudio website](https://www.rstudio.com/products/rstudio/download/)  
   3.  Start RStudio and install the `tidyverse` package with the code `install.packages("tidyverse")`  
-  
-**Stats 545**  
 
-You can also start with the University of British Columbia [`STAT 545`](http://stat545.com/index.html) website, which has an incredible list of introductory material for R and Statistics. It is written largely by [Jenny Bryan](https://twitter.com/JennyBryan) who you can follow on Twitter. The most useful [list of topics page](http://stat545.com/topics.html) will get you going.
 
-**Standard/Base R**  
+Each section is targeted based on your experience level in R and programming.
 
-Another book with more focus on statistics is [Applied Statistics with R](https://daviddalpiaz.github.io/appliedstats/) which is an online book. This book is written with "Base R" in mind, rather than using the "tidyverse" dialect presented in **R for Data Science**  
-Note: GitHub makes anything you load public. Do not upload sensitive research data here.  
+# Beginner Level resources  
 
-## Intermediate  
+## Base R vs Tidyverse style
 
-## Advanced    
+Before getting started with R, realize that there are different dialects of R programming, each with their own benefits and limitations. **"Base"** R refers to using only built-in R functions, without the use of many packages. Because these functions are relatively stable and do not change with new R updates, you are more likely to be able to rerun code written years later without major changes. Although many people consider R to be easy to program in, Base R has some inconsistencies and idosyncracies to be aware of highlighted in [The R Inferno (by Patrick Burns, available here)](https://www.burns-stat.com/documents/books/the-r-inferno/).  
+
+The **Tidyverse** is a newer addition to R programming, and is built on an alternative versions of base R functions developed in large part by Hadley Wickham et al. This system is generally more consistent in syntax compared to Base R (my opinion), which makes it more readable and understandable. The tidyverse is constantly evolving, and consists of multiple packages that need to be downloaded and installed (this is easy, though). The downside of programming in the tidyverse, is that if you use it heavily, a new approach will likely evolve over the next few years and your code may or may not be able to run in the future. Although that sounds terrible, it is possible to use older versions of R and the specific packages (another reason to always document the R version and packages used in your analysis reports).
+
+**Learning The Tidyverse**  
+
+I'm convinced the best introductory R resource is [R for Data Science](http://r4ds.had.co.nz/), available either online (free) or in print.  This book is written by Hadley Wickham et al. and uses an R programming dialect which is in my opinion, more consistent than the standard "Base R" language.I recommend learning this first, and then expanding your knowledge of the "Base R" language.  Note that anything that can be done using the "tidyverse" language can be done using Base R functions. However, for people with little programming background, this book is a great introduction. Although it is tidyverse-centric, it introduces the Base R versions for comparison.  
+
+**Tidyverse-style resources:**  
+
+*  [Tidyverse reference website](https://www.tidyverse.org/)  
+*  [Fundamentals of Data Visualization, Claus Wilke](https://serialmentor.com/dataviz/) for graphing in ggplot. This does not mix code and figures, so to get the actual code for making figures, you will have to go to [the books github site](https://github.com/clauswilke/dataviz)  
+*  [R for Data Science](http://r4ds.had.co.nz/)  
+*  [RStudio website](https://www.rstudio.com/products/rstudio/download/)  
+*  [STAT 545](http://stat545.com/index.html)- The useful [list of topics page](http://stat545.com/topics.html) will get you started.  
+*  Twitter. many of the package developers are on twitter and use the #rstats hashtag.  
+    *  [Jenny Bryan](https://twitter.com/JennyBryan)  
+    *  [Hadley Wickham](https://twitter.com/hadleywickham?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor)  
+    *  [Mara Averick](https://twitter.com/dataandme) is sure to provide all the links you need.   
+*  [R Programming for Data Science](https://bookdown.org/rdpeng/rprogdatascience/)   
+
+
+**"Base R"" (or Mixed Base/Tidyverse-style) resources:**  
+
+*  [R Programming for Data Science, R. Peng](https://bookdown.org/rdpeng/rprogdatascience/). This book is almost exclusively written to teach Base R and statistics, and covers R fundamentals very well.  
+*  [Learning Statistics with R online book](https://learningstatisticswithr.com/book/)  
+*  [Modern Statistics for Biology, Holmes & Huber](https://www-huber.embl.de/msmb/index.html) has a great mix of Base/tidyverse at an introductory level.  
+*  [Applied Statistics with R](https://daviddalpiaz.github.io/appliedstats/)  
+
+
+# Advanced Level Resources    
 
 Once you have a good handle on the R language, you can expand on it using these references. Some are available online, although some are only in print.
 
